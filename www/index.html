@@ -40,23 +40,34 @@
 				delay_20sec = new Date(now + 02*1000);
 				
 				$.ajax({
-					url: "index.php?eID=pushMessage",
-				}).success(function(responseText, status) {
-					window.plugin.notification.local.add({
-					  date        : delay_20sec,
-					  title       : "Test Local Notification", 
-					  message     : "Status:: "+status+" TestVal:: "+responseText,
-					  repeat      : "daily",
-					//  sound       : 'android.resource://' + package_name + '/raw/beep',
-					  badge       : 0,
-					  id          : 666,
-					  foreground  : function(notificationId){
-										alert("Foreground Notification");
-									},
-					  background  : function(notificationId){
-										alert("Background Notification");
-									}           
-					});
+					type       : "POST",
+					url        : "http://projects.vrisini.com/pradict/index.php?eID=pushMessage",
+					crossDomain: true,
+					beforeSend : function() {$.mobile.loading('show')},
+					complete   : function() {$.mobile.loading('hide')},
+					//data       : {username : 'subin', password : 'passwordx'},
+					//dataType   : 'json',
+					success    : function(response) {
+						window.plugin.notification.local.add({
+						  date        : delay_20sec,
+						  title       : "Test Local Notification", 
+						  message     : "Status:: "+status+" TestVal:: "+responseText,
+						  repeat      : "daily",
+						//  sound       : 'android.resource://' + package_name + '/raw/beep',
+						  badge       : 0,
+						  id          : 666,
+						  foreground  : function(notificationId){
+											alert("Foreground Notification");
+										},
+						  background  : function(notificationId){
+											alert("Background Notification");
+										}           
+						});
+					},
+					error      : function() {
+						//console.error("error");
+						alert('Not working!');                  
+					}
 				});
 				
 				
