@@ -45,11 +45,9 @@
 				//}
 				var parameters = 'mode=message';				    
 				http_request.open('POST', 'index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
-				http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				http_request.setRequestHeader("Content-length", parameters.length);
-				http_request.setRequestHeader("Connection", "close");
-				http_request.send(parameters);
-				
+				//http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				//http_request.setRequestHeader("Content-length", parameters.length);
+				//http_request.setRequestHeader("Connection", "close");
 				http_request.onreadystatechange = function(){
 					if (http_request.readyState == 4) {
 						var returnVal = http_request.responseText;
@@ -71,6 +69,9 @@
 						});
 					}
 				}
+				http_request.send(null);				
+				//http_request.send(parameters);				
+				
 		
 			/*   var now = new Date().getTime(),
 			  _5_sec_from_now = new Date(now + 5*1000);
