@@ -38,7 +38,29 @@
 				var package_name = "com.projects.vrisini";
 				var now = new Date().getTime(),
 				delay_20sec = new Date(now + 02*1000);
-
+				
+				$.ajax({
+					url: "index.php?eID=pushMessage",
+				}).success(function(responseText, status) {
+					window.plugin.notification.local.add({
+					  date        : delay_20sec,
+					  title       : "Test Local Notification", 
+					  message     : "Status:: "+status+" TestVal:: "+responseText,
+					  repeat      : "daily",
+					//  sound       : 'android.resource://' + package_name + '/raw/beep',
+					  badge       : 0,
+					  id          : 666,
+					  foreground  : function(notificationId){
+										alert("Foreground Notification");
+									},
+					  background  : function(notificationId){
+										alert("Background Notification");
+									}           
+					});
+				});
+				
+				
+				/*
 				http_request = new XMLHttpRequest();
 				//if (http_request.overrideMimeType) {
 				//	http_request.overrideMimeType('text/html');
@@ -71,7 +93,7 @@
 				}
 				http_request.send(null);				
 				//http_request.send(parameters);				
-				
+				*/
 		
 			/*   var now = new Date().getTime(),
 			  _5_sec_from_now = new Date(now + 5*1000);
