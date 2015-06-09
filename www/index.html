@@ -31,58 +31,20 @@
 			$.mobile.allowCrossDomainPages = true;
 			function onDeviceReady() {				
 				// window.plugin.notification.local is now available
-				document.location = 'http://projects.vrisini.com/pradict/';
+				//document.location = 'http://projects.vrisini.com/pradict/';
 
 				var package_name = "com.projects.vrisini";
 				var now = new Date().getTime(),
 				delay_20sec = new Date(now + 02*1000);
+				
 				alert('Baal');
-				/*
-				alert('Pre Debug');
-				
-				$.ajax({
-					type       : "POST",
-					url        : "http://projects.vrisini.com/pradict/index.php?eID=pushMessage",
-					crossDomain: true,
-					//beforeSend : function() {$.mobile.loading('show')},
-					//complete   : function() {$.mobile.loading('hide')},
-					//data       : {username : 'subin', password : 'passwordx'},
-					//dataType   : 'json',
-					success    : function(response, status) {
-						window.plugin.notification.local.add({
-						  date        : delay_20sec,
-						  title       : "Test Local Notification", 
-						  message     : "Status:: "+status+" TestVal:: "+response,
-						  repeat      : "daily",
-						//  sound       : 'android.resource://' + package_name + '/raw/beep',
-						  badge       : 0,
-						  id          : 666,
-						  foreground  : function(notificationId){
-											alert("Foreground Notification");
-										},
-						  background  : function(notificationId){
-											alert("Background Notification");
-										}           
-						});
-					},
-					error: function(xhr,status,error){
-						alert('Status:: '+status+' Error:: '+error);
-					},
-					error      : function() {
-						//console.error("error");
-						alert('Not working!');                  
-					}
-				});
-				
-				alert('Post Debug');
-				*/
 				
 				http_request = new XMLHttpRequest();
 				//if (http_request.overrideMimeType) {
 				//	http_request.overrideMimeType('text/html');
 				//}
 				var parameters = 'mode=message';				    
-				http_request.open('POST', 'index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
+				http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
 				//http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				//http_request.setRequestHeader("Content-length", parameters.length);
 				//http_request.setRequestHeader("Connection", "close");
