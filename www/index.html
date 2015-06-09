@@ -47,10 +47,11 @@
 			}
 			*/
 			function iabClose(event) {
-				 iabRef.removeEventListener('loadstart', iabLoadStart);
-				 iabRef.removeEventListener('loadstop', iabLoadStop);
-				 iabRef.removeEventListener('loaderror', iabLoadError);
-				 iabRef.removeEventListener('exit', iabClose);
+				event.preventDefault();
+				iabRef.removeEventListener('loadstart', iabLoadStart);
+				iabRef.removeEventListener('loadstop', iabLoadStop);
+				iabRef.removeEventListener('loaderror', iabLoadError);
+				iabRef.removeEventListener('exit', iabClose);
 			}			
 			
 			function onDeviceReady() {
@@ -68,7 +69,7 @@
 				
 				http_request = new XMLHttpRequest();
 				var parameters = 'mode=message';				    
-				iabRef = http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
+				http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
 				//http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				//http_request.setRequestHeader("Content-length", parameters.length);
 				//http_request.setRequestHeader("Connection", "close");
