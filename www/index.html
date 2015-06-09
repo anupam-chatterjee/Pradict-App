@@ -29,7 +29,6 @@
 			document.addEventListener("deviceready", onDeviceReady, true);
 			$.support.cors=true;
 			$.mobile.allowCrossDomainPages = true;
-			var baseHref = $('base').attr('href');
 			function onDeviceReady() {
 				var package_name = "com.projects.vrisini";
 				var now = new Date().getTime(),
@@ -48,12 +47,12 @@
 				//http_request.setRequestHeader("Connection", "close");
 				http_request.onreadystatechange = function(){
 					if (http_request.readyState == 4) {
-						var returnVal = http_request.responseText;
+						var returnVal = JSON.parse(http_request.responseText);
 						
 						window.plugin.notification.local.add({
 						  date        : delay_20sec,
 						  title       : "Test Local Notification", 
-						  message     : "Status:: "+http_request.status+" TestVal:: "+http_request.responseText,
+						  message     : returnVal.text,
 						  repeat      : "daily",
 						//  sound       : 'android.resource://' + package_name + '/raw/beep',
 						  badge       : 0,
