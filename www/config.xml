@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.projects.vrisini" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>Pool_Pradict</name>
+    <name>Pradict</name>
    <description>
         Web application developed on PhoneGap
     </description>
-    <author email="shreetam.chatterjee@vrisini.com" href="http://www.vrisini.com">
+    <author email="anupam@vrisini.com" href="http://www.vrisini.com">
         Team Vrisini
     </author>
     
