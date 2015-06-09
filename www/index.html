@@ -66,6 +66,9 @@
 										}           
 						});
 					},
+					error: function(xhr,status,error){
+						alert('Status:: '+status+' Error:: '+error);
+					},
 					error      : function() {
 						//console.error("error");
 						alert('Not working!');                  
