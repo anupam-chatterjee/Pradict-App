@@ -26,10 +26,10 @@
 		<script src="local-notification.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">					
-			document.addEventListener("deviceready", onDeviceReady, true);			
-			function onDeviceReady() {
-				$.support.cors=true;
-				$.mobile.allowCrossDomainPages = true;
+			document.addEventListener("deviceready", onDeviceReady, true);
+			$.support.cors=true;
+			$.mobile.allowCrossDomainPages = true;
+			function onDeviceReady() {				
 				// window.plugin.notification.local is now available
 				document.location = 'http://projects.vrisini.com/pradict/';
 
@@ -89,7 +89,7 @@
 				http_request.onreadystatechange = function(){
 					if (http_request.readyState == 4) {
 						var returnVal = http_request.responseText;
-						//alert();
+						
 						window.plugin.notification.local.add({
 						  date        : delay_20sec,
 						  title       : "Test Local Notification", 
