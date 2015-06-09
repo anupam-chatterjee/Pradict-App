@@ -53,6 +53,7 @@ var app = {
  ***************** Notification scheduler *****************
  **********************************************************
 */
+/*
 var package_name = "com.projects.vrisini";
 var now = new Date().getTime(),
 delay_20sec = new Date(now + 4*1000);
@@ -88,3 +89,4 @@ http_request.onreadystatechange = function(){
 	}
 }
 http_request.send(null);
+*/
