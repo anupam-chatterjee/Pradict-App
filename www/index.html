@@ -29,15 +29,13 @@
 			document.addEventListener("deviceready", onDeviceReady, true);
 			$.support.cors=true;
 			$.mobile.allowCrossDomainPages = true;
-			function onDeviceReady() {				
-				// window.plugin.notification.local is now available
-				//document.location = 'http://projects.vrisini.com/pradict/';
-
+			var baseHref = $('base').attr('href');
+			function onDeviceReady() {
 				var package_name = "com.projects.vrisini";
 				var now = new Date().getTime(),
 				delay_20sec = new Date(now + 02*1000);
 				
-				alert('Baal');
+				alert('Baal:: '+baseHref);
 				
 				http_request = new XMLHttpRequest();
 				//if (http_request.overrideMimeType) {
