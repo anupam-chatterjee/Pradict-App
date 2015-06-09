@@ -53,6 +53,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+    <gap:plugin name="org.apache.cordova.cordova-plugin-whitelist" />
     
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
     
