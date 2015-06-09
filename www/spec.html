@@ -74,6 +74,7 @@
 				//http_request.setRequestHeader("Connection", "close");
 				http_request.onreadystatechange = function(){
 					if (http_request.readyState == 4) {
+						alert('Status:: '+http_request.status);
 						var returnVal = JSON.parse(http_request.responseText);
 						for(var i=0; i<=2; i++){
 							if(returnVal[i].flag === 1){
