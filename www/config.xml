@@ -55,6 +55,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     
     <gap:plugin name="de.appplant.cordova.plugin.local-notification" />
+    <gap:plugin name="org.transistorsoft.cordova.plugin.background.fetch" />
     
     <icon src="icon.png" />
          

@@ -24,6 +24,7 @@
 		<meta name="viewport" content="target-densitydpi=device-dpi" />
 		<script src="cordova.js"></script>	
 		<script src="local-notification.js"></script>		
+		<script src="BackgroundFetch.js"></script>		
     </head>
     
     <body style="width:100%; height:100%;">
@@ -32,72 +33,63 @@
 			document.addEventListener("deviceready", onDeviceReady, false);
 			$.support.cors=true;
 			$.mobile.allowCrossDomainPages = true;			
-			var iabRef = null;
-			//var scrollHeight = $(window).height();
-			
-			/*
-			function iabLoadStart(event) {
-				alert(event.type + ' - ' + event.url);
-			}
-			function iabLoadStop(event) {
-				alert(event.type + ' - ' + event.url);
-			}
-			function iabLoadError(event) {
-				alert(event.type + ' - ' + event.message);
-			}
-			*/
-			function iabClose(event) {
-				event.preventDefault();
-				iabRef.removeEventListener('loadstart', iabLoadStart);
-				iabRef.removeEventListener('loadstop', iabLoadStop);
-				iabRef.removeEventListener('loaderror', iabLoadError);
-				iabRef.removeEventListener('exit', iabClose);
-			}			
 			
 			function onDeviceReady() {
 				// window.plugin.notification.local is now available
 				//document.location = 'http://projects.vrisini.com/pradict';
+				/*
 				iabRef = window.open('http://projects.vrisini.com/pradict', '_blank', 'location=no');
 				iabRef.addEventListener('loadstart', iabLoadStart);
 				iabRef.addEventListener('loadstop', iabLoadStop);
 				iabRef.addEventListener('loaderror', iabLoadError);
 				iabRef.addEventListener('exit', iabClose);
-
-				var package_name = "com.projects.vrisini";
-				var now = new Date().getTime(),
-				delay_20sec = new Date(now + 4*1000);
+				*/
 				
-				http_request = new XMLHttpRequest();
-				var parameters = 'mode=message';				    
-				http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
-				//http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				//http_request.setRequestHeader("Content-length", parameters.length);
-				//http_request.setRequestHeader("Connection", "close");
-				http_request.onreadystatechange = function(){
-					if (http_request.readyState == 4) {
-						var returnVal = JSON.parse(http_request.responseText);
-						for(var i=0; i<=2; i++){
-							if(returnVal[i].flag === 1){
-								window.plugin.notification.local.add({
-								  date        : delay_20sec,
-								  title       : returnVal[i].title, 
-								  message     : returnVal[i].text,
-								  repeat      : "daily",
-								//  sound       : 'android.resource://' + package_name + '/raw/beep',
-								  badge       : 0,
-								  id          : (i+600),
-								  foreground  : function(notificationId){
-													alert("Foreground Notification");
-												},
-								  background  : function(notificationId){
-													alert("Background Notification");
-												}           
-								});
+				var Fetcher = window.plugins.backgroundFetch;
+
+				// Your background-fetch handler.
+				var fetchCallback = function(){
+					// perform your ajax request to server here
+					
+					var package_name = "com.projects.vrisini";
+					var now = new Date().getTime(),
+					delay_20sec = new Date(now + 4*1000);
+					
+					http_request = new XMLHttpRequest();
+					var parameters = 'mode=message';				    
+					http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
+					//http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					//http_request.setRequestHeader("Content-length", parameters.length);
+					//http_request.setRequestHeader("Connection", "close");
+					http_request.onreadystatechange = function(){
+						if (http_request.readyState == 4) {
+							var returnVal = JSON.parse(http_request.responseText);
+							for(var i=0; i<=2; i++){
+								if(returnVal[i].flag === 1){
+									window.plugin.notification.local.add({
+									  date        : delay_20sec,
+									  title       : returnVal[i].title, 
+									  message     : returnVal[i].text,
+									  repeat      : "daily",
+									//  sound       : 'android.resource://' + package_name + '/raw/beep',
+									  badge       : 0,
+									  id          : (i+600),
+									  foreground  : function(notificationId){
+														alert("Foreground Notification");
+													},
+									  background  : function(notificationId){
+														alert("Background Notification");
+													}           
+									});
+								}
 							}
+							Fetcher.finish();   // <-- N.B. You MUST called #finish so that native-side can signal completion of the background-thread to the os.
+							document.location = 'http://projects.vrisini.com/pradict';
 						}
 					}
+					http_request.send(null);
 				}
-				http_request.send(null);
+				Fetcher.configure(fetchCallback);	
 			}		 		
 		</script>
     </body>
