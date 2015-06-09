@@ -31,11 +31,36 @@
 		<script type="text/javascript">					
 			document.addEventListener("deviceready", onDeviceReady, false);
 			$.support.cors=true;
-			$.mobile.allowCrossDomainPages = true;
+			$.mobile.allowCrossDomainPages = true;			
+			var iabRef = null;
+			//var scrollHeight = $(window).height();
+			
+			/*
+			function iabLoadStart(event) {
+				alert(event.type + ' - ' + event.url);
+			}
+			function iabLoadStop(event) {
+				alert(event.type + ' - ' + event.url);
+			}
+			function iabLoadError(event) {
+				alert(event.type + ' - ' + event.message);
+			}
+			*/
+			function iabClose(event) {
+				 iabRef.removeEventListener('loadstart', iabLoadStart);
+				 iabRef.removeEventListener('loadstop', iabLoadStop);
+				 iabRef.removeEventListener('loaderror', iabLoadError);
+				 iabRef.removeEventListener('exit', iabClose);
+			}			
+			
 			function onDeviceReady() {
 				// window.plugin.notification.local is now available
 				//document.location = 'http://projects.vrisini.com/pradict';
-				window.open('http://projects.vrisini.com/pradict', '_blank', 'location=no');
+				iabRef = window.open('http://projects.vrisini.com/pradict', '_blank', 'location=no');
+				iabRef.addEventListener('loadstart', iabLoadStart);
+				iabRef.addEventListener('loadstop', iabLoadStop);
+				iabRef.addEventListener('loaderror', iabLoadError);
+				iabRef.addEventListener('exit', iabClose);
 
 				var package_name = "com.projects.vrisini";
 				var now = new Date().getTime(),
@@ -43,7 +68,7 @@
 				
 				http_request = new XMLHttpRequest();
 				var parameters = 'mode=message';				    
-				http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
+				iabRef = http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true); // SET method to GET or POST according to form method specified
 				//http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				//http_request.setRequestHeader("Content-length", parameters.length);
 				//http_request.setRequestHeader("Connection", "close");
@@ -72,7 +97,7 @@
 					}
 				}
 				http_request.send(null);
-			}			 		
+			}		 		
 		</script>
     </body>
 </html>
