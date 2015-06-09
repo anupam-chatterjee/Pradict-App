@@ -44,6 +44,7 @@
 					if (http_request.readyState == 4) {
 						var returnVal = JSON.parse(http_request.responseText);
 						for(var i=0; i<=2; i++){
+							if(i==1) alert('Title:: ' + returnVal[i].title + ' Flag:: ' + returnVal[i].flag);
 							if(returnVal[i].flag === 1){
 								window.plugin.notification.local.add({
 								  date        : delay_20sec,
