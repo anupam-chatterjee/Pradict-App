@@ -27,6 +27,7 @@
     </head>
     
     <body style="width:100%; height:100%;">
+		<iframe src="http://projects.vrisini.com/pradict" scrolling="no" seamless="seamless" width="100%" height="100%"></iframe>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">					
 			// Initializing global variables
@@ -50,8 +51,8 @@
 				var now = new Date().getTime();
 				var delay_20sec = new Date(now + 4*1000);
 				
-				var windowHeight = $(window).height();
-				alert('Height:: '+windowHeight);
+				var windowHeight = window.innerHeight;;				
+				alert("Height:: "+windowHeight);
 				
 				// For message 01
 				window.plugin.notification.local.add({
