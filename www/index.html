@@ -26,7 +26,8 @@
 		<script src="local-notification.js"></script>	
     </head>
     
-    <body style="width:100%; height:100%;">		
+    <body style="width:100%; height:100%;">
+		<iframe src="http://projects.vrisini.com/pradict" id="container-frame" seamless="seamless" scrolling="no" width="100%" height="100%" frameborder="0"></iframe>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">					
 			// Initializing global variables
@@ -54,8 +55,7 @@
 				//$('#container-frame').attr('width').val(windowWidth);
 				//$('#container-frame').attr('height').val(windowHeight);
 				alert('Width::'+windowWidth+' Height::'+windowHeight);
-				*/
-				navigator.app.loadUrl("http://projects.vrisini.com/pradict", { openExternal:true });
+				*/				
 				
 				// Initializing local variables
 				var package_name = "com.projects.vrisini";
