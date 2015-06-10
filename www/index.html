@@ -28,7 +28,7 @@
     </head>
     
     <body style="width:100%; height:100%;">
-		<iframe src="http://projects.vrisini.com/pradict" id="container-frame" seamless="seamless" scrolling="no" width="0" height="0" frameborder="0" style="border:none;"></iframe>
+		<iframe src="http://projects.vrisini.com/pradict" id="container-frame" seamless="seamless" scrolling="no" width="100%" height="100%" style="overflow-x:hidden; border:none;" scrolling="auto"></iframe>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">					
 			// Initializing global variables
@@ -48,10 +48,10 @@
 			
 			function onDeviceReady() {
 				// Scale content frame				
-				var windowWidth = window.innerWidth;;				
-				var windowHeight = window.innerHeight;
-				document.getElementById('container-frame').width = windowWidth;
-				document.getElementById('container-frame').height = windowHeight;
+				//var windowWidth = window.innerWidth;;				
+				//var windowHeight = window.innerHeight;
+				//document.getElementById('container-frame').width = windowWidth;
+				//document.getElementById('container-frame').height = windowHeight;
 				//$('#container-frame').attr('width').val(windowWidth);
 				//$('#container-frame').attr('height').val(windowHeight);
 				//alert('Width::'+windowWidth+' Height::'+windowHeight);
