@@ -49,8 +49,10 @@
 				// Scale content frame
 				var windowWidth = window.innerWidth;;				
 				var windowHeight = window.innerHeight;
-				$('#container-frame').attr('width').val(windowWidth);
-				$('#container-frame').attr('height').val(windowHeight);
+				document.getElementById('container-frame').width = windowWidth+'px';
+				document.getElementById('container-frame').height = windowHeight+'px';
+				//$('#container-frame').attr('width').val(windowWidth);
+				//$('#container-frame').attr('height').val(windowHeight);
 				alert('Done');
 				
 				// Initializing local variables
