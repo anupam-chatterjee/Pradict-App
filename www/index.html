@@ -50,6 +50,9 @@
 				var now = new Date().getTime();
 				var delay_20sec = new Date(now + 4*1000);
 				
+				var windowHeight = $(window).height();
+				alert('Height:: '+windowHeight);
+				
 				// For message 01
 				window.plugin.notification.local.add({
 					date        : delay_20sec,
@@ -130,7 +133,7 @@
 							else flag03 = false;
 							title03 = returnVal.title;
 							message03 = returnVal.text;
-							document.location = 'http://projects.vrisini.com/pradict';
+							//document.location = 'http://projects.vrisini.com/pradict';
 						}
 					}
 				}
