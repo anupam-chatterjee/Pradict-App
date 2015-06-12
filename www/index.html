@@ -54,37 +54,8 @@
 			});
 			
 			document.addEventListener("deviceready", onDeviceReady, false);
-			document.addEventListener("receivedLocalNotification", onReceivedLocalNotification, false);
 			$.support.cors=true;
 			$.mobile.allowCrossDomainPages = true;			
-			
-			function decrementBadgeValue(badge) {
-				if ( badge > 0 ) {
-					badge = badge - 1;
-				}
-				window.localNotification.setApplicationBadge(badge);
-			}
-				
-			function onReceivedLocalNotification(event) {
-				var activeMessage;
-				if ( event.active === true ) {
-					activeMessage = ' while app was active';
-				} else {
-					activeMessage = ' while app was inactive';
-				}
-				var message = "Received local notificationId: " + event.notificationId + activeMessage;
-				console.log(message);
-				alert(message);
-			}
-			
-			var successCb = function () {
-				// Generic callback function
-				console.log("API success");
-			}
-			var failureCb = function (error) {
-				// Generic callback function
-				alert(error);
-			}
 			
 			function onDeviceReady() {
 				// Scale content frame				
@@ -100,22 +71,7 @@
 				var package_name = "com.projects.vrisini";
 				var now = new Date().getTime();
 				var delay_20sec = new Date(now + 4*1000);
-				var badge = 100001;
 				
-				if (!window.localNotification) {
-					alert("Could not find localNotification");
-				}
-				
-				var options = {
-					"message" : "This is a test notification",
-					"seconds" : 15,
-					"badge" : badge,
-				};
-				
-				window.localNotification.queue("SCHEDULED_NOTIFICATION", options, function () {
-					alert("Successfully queued (will be scheduled after quitting the app):\n" + JSON.stringify(options));
-					successCb();
-				}, failureCb);
 				
 				/*
 				// For message 01
@@ -171,11 +127,10 @@
 				*/
 				/* Scheduling push notifications */
 				// For message 01	
-				/*
 				window.plugin.notification.local.schedule({
 					id          : 601,
 					title       : 'Pradict 01', 
-					text     	: getMessageAjax('x'),
+					text     	: 'Baal 01', //getMessageAjax('x'),
 					firstAt     : delay_20sec,
 					every      	: "minute",
 					badge       : 601
@@ -184,7 +139,7 @@
 				window.plugin.notification.local.schedule({
 					id          : 602,
 					title       : 'Pradict 02', 
-					text     	: getMessageAjax('y'),
+					text     	: 'Baal 02', //getMessageAjax('y'),
 					firstAt     : delay_20sec,
 					every      	: "minute",
 					badge       : 602
@@ -193,12 +148,16 @@
 				window.plugin.notification.local.schedule({
 					id          : 603,
 					title       : 'Pradict 03', 
-					text     	: getMessageAjax('z'),
+					text     	: 'Baal 03', //getMessageAjax('z'),
 					firstAt     : delay_20sec,
 					every      	: "minute",
 					badge       : 603
 				});
-				*/
+			}
+			
+			window.plugin.notification.local.ontrigger = function (id, state, json) {
+				json.title = 'Pradict '+json.badge;
+				json.message = 'Working '+json.badge;
 			}
 			
 			function getMessageAjax(mode){
