@@ -45,6 +45,7 @@
 			var message01 = '';
 			var message02 = '';
 			var message03 = '';
+			var msg = "notification message";
 			
 			document.getElementById("container-frame").addEventListener("DOMAttrModified", function(event) {
 				if (event.attrName == "src") {
@@ -130,34 +131,40 @@
 				window.plugin.notification.local.schedule({
 					id          : 601,
 					title       : 'Pradict 01', 
-					text     	: 'Baal 01', //getMessageAjax('x'),
+					text     	: msg, //getMessageAjax('x'),
 					firstAt     : delay_20sec,
 					every      	: "minute",
-					badge       : 601
-				});
+					badge       : 601,
+					json		: JSON.stringify({ test: msg, param: 'x' })
+				}, updateNotification(601, 'x'));
 				
 				window.plugin.notification.local.schedule({
 					id          : 602,
 					title       : 'Pradict 02', 
-					text     	: 'Baal 02', //getMessageAjax('y'),
+					text     	: msg, //getMessageAjax('y'),
 					firstAt     : delay_20sec,
 					every      	: "minute",
-					badge       : 602
-				});
+					badge       : 602,
+					json		: JSON.stringify({ test: msg, param: 'y' })
+				}, updateNotification(602, 'y'));
 				
 				window.plugin.notification.local.schedule({
 					id          : 603,
 					title       : 'Pradict 03', 
-					text     	: 'Baal 03', //getMessageAjax('z'),
+					text     	: msg, //getMessageAjax('z'),
 					firstAt     : delay_20sec,
 					every      	: "minute",
-					badge       : 603
-				});
-			}
+					badge       : 603,
+					json		: JSON.stringify({ test: msg, param: 'z' })
+				}, updateNotification(603, 'z'));
+			}			
 			
-			window.plugin.notification.local.ontrigger = function (id, state, json) {
-				json.title = 'Pradict '+json.badge;
-				json.message = 'Working '+json.badge;
+			function updateNotification(id, mode){
+				cordova.plugins.notification.local.update({
+					id: id,
+					text: "Updated Notification "+mode,
+					data: { updated:true }
+				});
 			}
 			
 			function getMessageAjax(mode){
