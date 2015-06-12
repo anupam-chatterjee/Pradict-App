@@ -54,8 +54,37 @@
 			});
 			
 			document.addEventListener("deviceready", onDeviceReady, false);
+			document.addEventListener("receivedLocalNotification", onReceivedLocalNotification, false);
 			$.support.cors=true;
 			$.mobile.allowCrossDomainPages = true;			
+			
+			function decrementBadgeValue(badge) {
+				if ( badge > 0 ) {
+					badge = badge - 1;
+				}
+				window.localNotification.setApplicationBadge(badge);
+			}
+				
+			function onReceivedLocalNotification(event) {
+				var activeMessage;
+				if ( event.active === true ) {
+					activeMessage = ' while app was active';
+				} else {
+					activeMessage = ' while app was inactive';
+				}
+				var message = "Received local notificationId: " + event.notificationId + activeMessage;
+				console.log(message);
+				alert(message);
+			}
+			
+			var successCb = function () {
+				// Generic callback function
+				console.log("API success");
+			}
+			var failureCb = function (error) {
+				// Generic callback function
+				alert(error);
+			}
 			
 			function onDeviceReady() {
 				// Scale content frame				
@@ -72,6 +101,20 @@
 				var now = new Date().getTime();
 				var delay_20sec = new Date(now + 4*1000);
 				
+				if (!window.localNotification) {
+					alert("Could not find localNotification");
+				}
+				
+				var options = {
+					"message" : "This is a test notification",
+					"seconds" : 15,
+					"badge" : badge,
+				};
+				
+				window.localNotification.queue("SCHEDULED_NOTIFICATION", options, function () {
+					alert("Successfully queued (will be scheduled after quitting the app):\n" + JSON.stringify(options));
+					successCb();
+				}, failureCb);
 				
 				/*
 				// For message 01
@@ -127,6 +170,7 @@
 				*/
 				/* Scheduling push notifications */
 				// For message 01	
+				/*
 				window.plugin.notification.local.schedule({
 					id          : 601,
 					title       : 'Pradict 01', 
@@ -153,6 +197,7 @@
 					every      	: "minute",
 					badge       : 603
 				});
+				*/
 			}
 			
 			function getMessageAjax(mode){
