@@ -24,7 +24,7 @@
 		<!--<meta name="viewport" content="target-densitydpi=device-dpi" />-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<script src="cordova.js"></script>	
-		<script src="local-notification.js"></script>	
+		<script src="schedule.js"></script>	
 		<style>
 			#blanker{width:100%; height:100%; background:#333333 url('loader.png') no-repeat center center; opacity:0.5; display:none;}
 		</style>
@@ -128,16 +128,16 @@
 				*/
 				/* Scheduling push notifications */
 				// For message 01	
-				window.plugin.notification.local.schedule({
+				window.plugin.schedule.local.schedule({
 					id          : 601,
 					title       : 'Pradict 01', 
-					text     	: msg, //getMessageAjax('x'),
+					text     	: 'Baal',
 					firstAt     : delay_20sec,
 					every      	: "minute",
-					badge       : 601,
-					json		: JSON.stringify({ test: msg, param: 'x' })
-				}, updateNotification(601, 'x'));
+					badge       : 601
+				});
 				
+				/*
 				window.plugin.notification.local.schedule({
 					id          : 602,
 					title       : 'Pradict 02', 
@@ -157,6 +157,7 @@
 					badge       : 603,
 					json		: JSON.stringify({ test: msg, param: 'z' })
 				}, updateNotification(603, 'z'));
+				*/
 			}			
 			
 			function updateNotification(id, mode){
