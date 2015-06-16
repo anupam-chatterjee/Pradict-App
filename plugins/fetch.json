@@ -1,11 +1,4 @@
 {
-    "vrisini.cordova.plugin.schedule": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/anupam-chatterjee/cordova-plugin-schedule.git",
-            "subdir": "."
-        }
-    },
     "com.phonegap.plugins.facebookconnect": {
         "source": {
             "type": "git",
