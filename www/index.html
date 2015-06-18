@@ -46,14 +46,14 @@
 			var message02 = '';
 			var message03 = '';
 			var msg = "notification message";
-			
+			/*
 			document.getElementById("container-frame").addEventListener("DOMAttrModified", function(event) {
 				if (event.attrName == "src") {
 				   document.getElementById('blanker').style.display = 'block';
 				   document.getElementById("container-frame").onload = function(){ document.getElementById('blanker').style.display = 'none'; }
 				}
 			});
-			
+			*/
 			document.addEventListener("deviceready", onDeviceReady, false);
 			$.support.cors=true;
 			$.mobile.allowCrossDomainPages = true;			
@@ -136,7 +136,7 @@
 					every      	: "minute",
 					badge       : 601
 				});
-				
+				alert("testing ok...");
 				/*
 				window.plugin.notification.local.schedule({
 					id          : 602,
