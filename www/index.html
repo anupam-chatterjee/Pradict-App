@@ -23,8 +23,8 @@
     <head>
 		<!--<meta name="viewport" content="target-densitydpi=device-dpi" />-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<script src="cordova.js"></script>	
-		<script src="schedule.js"></script>	
+		<script type="text/javascript" src="cordova.js"></script>	
+		<script type="text/javascript" src="schedule.js"></script>	
 		<style>
 			#blanker{width:100%; height:100%; background:#333333 url('loader.png') no-repeat center center; opacity:0.5; display:none;}
 		</style>
@@ -129,7 +129,7 @@
 				/* Scheduling push notifications */
 				// For message 01
 				alert("testing 02 ok...");
-				window.plugin.schedule.local.schedule({
+				window.plugins.schedule.local.schedule({
 					id          : 601,
 					title       : 'Pradict 01', 
 					text     	: 'Baal',
