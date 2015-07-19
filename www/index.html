@@ -27,15 +27,15 @@
 		<script type="text/javascript" src="schedule.js"></script>	
 		<style>
 			html, body{width:100%; height:100%; margin:0; padding:0;}
-			#blanker{width:96px; height:96px; background:url('loader.gif') no-repeat center center; display:none; z-index:1000; position:absolute;}
-			#offline-screen{width:100%; background:url('connectionlost.png') no-repeat center center; image-size:contain; z-index:1000; position:absolute;}
+			#blanker{width:96px; height:96px; background:url('loader.gif') no-repeat center center; display:none; z-index:1005; position:absolute;}
+			#offline-screen{width:100%; background:url('connectionlost.png') no-repeat center center; image-size:contain; display:none; z-index:1000; position:absolute;}
 			#content{width:100%;}
 		</style>
     </head>
     
     <body>
 		<div id="blanker"></div>
-		<div id="content"></div>
+		<div id="offline-screen"></div>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">
 			// Initializing global variables
@@ -71,13 +71,13 @@
 			
 			function getMyUi(myDeviceToken){
 				if(flag){
-					document.getElementById('content').innerHTML= '<iframe src="http://app.pradict.com/index.php?id=1&devId='+myDeviceToken+'" onload="loaded();" name="container-frame" id="container-frame" seamless="seamless" width="100%" height="100%" style="overflow-x:hidden; border:none;" scrolling="auto" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>';
+					document.write('<iframe src="http://app.pradict.com/index.php?id=1&devId='+myDeviceToken+'" onload="loaded();" name="container-frame" id="container-frame" seamless="seamless" width="100%" height="100%" style="overflow-x:hidden; border:none;" scrolling="auto" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>');
 					flag = false;
 				}
 			}				
 			
 			function onDeviceReady() {
-				document.getElementById('content').style.height = document.body.clientHeight+'px';
+				document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
 				document.addEventListener("online", deviceOnline, false);
 				document.addEventListener("offline", deviceOffline, false);
 				var networkState = navigator.connection.type;
@@ -99,7 +99,8 @@
 			}
 			
 			function doWhenOnline(){
-				document.getElementById('blanker').style.display = 'block';				
+				document.getElementById('offline-screen').style.display = 'none';
+				document.getElementById('blanker').style.display = 'block';
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
 					tokenHandler,
@@ -114,8 +115,7 @@
 			}
 			
 			function doWhenOffline(){				
-				document.getElementById('content').innerHTML= '<div id="offline-screen"></div>';
-				document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
+				document.getElementById('offline-screen').style.display = 'block';
 			}
 			
 			// Handle push token result
