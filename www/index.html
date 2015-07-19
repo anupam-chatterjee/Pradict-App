@@ -49,13 +49,7 @@
 			
 			// Add support
 			$.support.cors=true;
-			$.mobile.allowCrossDomainPages = true;
-			
-			// Blanker on change
-			var calcTop = ((document.body.clientHeight / 2) - 48);
-			var calcLeft = ((document.body.clientWidth / 2) - 48);
-			document.getElementById('blanker').style.top = calcTop+'px';
-			document.getElementById('blanker').style.left = calcLeft+'px';
+			$.mobile.allowCrossDomainPages = true;		
 
 			function loaded(){
 				document.getElementById('blanker').style.display = 'none';
@@ -77,6 +71,11 @@
 			}				
 			
 			function onDeviceReady() {
+				// Blanker on change
+				var calcTop = ((document.body.clientHeight / 2) - 48);
+				var calcLeft = ((document.body.clientWidth / 2) - 48);
+				document.getElementById('blanker').style.top = calcTop+'px';
+				document.getElementById('blanker').style.left = calcLeft+'px';
 				document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
 				document.addEventListener("online", deviceOnline, false);
 				document.addEventListener("offline", deviceOffline, false);
@@ -94,13 +93,13 @@
 			}
 			
 			function deviceOffline(){
-				flag = true;
 				doWhenOffline();
 			}
 			
 			function doWhenOnline(){
 				document.getElementById('offline-screen').style.display = 'none';
 				document.getElementById('blanker').style.display = 'block';
+				/*
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
 					tokenHandler,
@@ -112,6 +111,8 @@
 						"ecb":"onNotificationAPN"
 					}
 				);
+				*/
+				getMyUi('0');
 			}
 			
 			function doWhenOffline(){				
