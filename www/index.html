@@ -33,11 +33,13 @@
     </head>
     
     <body>
-		<div id="blanker"></div>		
+		<div id="blanker"></div>
+		<div id="content"></div>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">
 			// Initializing global variables
 			var flag = true;
+			var online = true;
 			var pushNotification;
 
 			// Add handlers for various stages
@@ -68,7 +70,7 @@
 			
 			function getMyUi(myDeviceToken){
 				if(flag){
-					document.write('<iframe src="http://app.pradict.com/index.php?id=1&devId='+myDeviceToken+'" onload="loaded();" name="container-frame" id="container-frame" seamless="seamless" width="100%" height="100%" style="overflow-x:hidden; border:none;" scrolling="auto" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>');
+					document.getElementById('content').innerHTML= '<iframe src="http://app.pradict.com/index.php?id=1&devId='+myDeviceToken+'" onload="loaded();" name="container-frame" id="container-frame" seamless="seamless" width="100%" height="100%" style="overflow-x:hidden; border:none;" scrolling="auto" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>';
 					flag = false;
 				}
 			}				
@@ -78,30 +80,24 @@
 				document.addEventListener("offline", deviceOffline, false);
 				var networkState = navigator.connection.type;
 				if(networkState == Connection.NONE) {
-					alert("Comlink failure");
 					doWhenOffline();
 				}
 				else{
-					alert("Comlink established");
 					doWhenOnline()
 				}                				
 			}			
 			
 			function deviceOnline(){
-				alert("Comlink re-established");
 				doWhenOnline();
 			}
 			
 			function deviceOffline(){
-				alert("Comlink lost");
 				flag = true;
 				doWhenOffline();
 			}
 			
 			function doWhenOnline(){
-				document.body.innerHTML = '';
-				document.getElementById('blanker').style.display = 'block';
-				
+				document.getElementById('blanker').style.display = 'block';				
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
 					tokenHandler,
@@ -116,7 +112,7 @@
 			}
 			
 			function doWhenOffline(){				
-				document.body.innerHTML = '<div id="offline-screen"></div>';
+				document.getElementById('content').innerHTML= '<div id="offline-screen"></div>';
 				document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
 			}
 			
@@ -124,13 +120,11 @@
 			function tokenHandler (result) {
 				// Your iOS push server needs to know the token before it can push to this device
 				// here is where you might want to send it the token for later use.
-				document.body.innerHTML = '';
 				getMyUi(result);                  
 			}
 			
 			// result contains any error description text returned from the plugin call
 			function errorHandler (error) {
-				document.body.innerHTML = '';
 				getMyUi('0');
 			}
 		</script>
