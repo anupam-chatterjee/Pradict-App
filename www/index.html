@@ -28,6 +28,7 @@
 		<style>
 			html, body{width:100%; height:100%; margin:0; padding:0;}
 			#blanker{width:96px; height:96px; background:url('loader.gif') no-repeat center center; display:none; z-index:1000; position:absolute;}
+			#offline-screen{width:100%; background:url('connectionlost.png') no-repeat center center; image-size:contain; display:none; z-index:1000; position:absolute;}
 		</style>
     </head>
     
@@ -42,8 +43,6 @@
 			// Add handlers for various stages
 			window.addEventListener("message", receiveMessage, false);
 			document.addEventListener("deviceready", onDeviceReady, false);			
-			document.addEventListener("online", deviceOnline, false);
-			document.addEventListener("online", deviceOffline, false);
 			
 			// Add support
 			$.support.cors=true;
@@ -75,17 +74,33 @@
 			}				
 			
 			function onDeviceReady() {
+				document.addEventListener("online", deviceOnline, false);
+				document.addEventListener("offline", deviceOffline, false);
 				var networkState = navigator.connection.type;
 				if(networkState == Connection.NONE) {
 					alert("Comlink failure");
+					doWhenOffline();
 				}
 				else{
 					alert("Comlink established");
-					//doWhenOnline()
+					doWhenOnline()
 				}                				
+			}			
+			
+			function deviceOnline(){
+				alert("Comlink re-established");
+				doWhenOnline();
+			}
+			
+			function deviceOffline(){
+				alert("Comlink lost");
+				doWhenOffline();
 			}
 			
 			function doWhenOnline(){
+				document.getElementById('offline-screen').style.display = 'none';
+				document.getElementById('blanker').style.display = 'block';
+				
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
 					tokenHandler,
@@ -99,24 +114,24 @@
 				);
 			}
 			
+			function doWhenOffline(){
+				document.body.innerHTML = '';
+				document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
+				document.getElementById('offline-screen').style.display = 'block';
+			}
+			
 			// Handle push token result
 			function tokenHandler (result) {
 				// Your iOS push server needs to know the token before it can push to this device
 				// here is where you might want to send it the token for later use.
+				document.body.innerHTML = '';
 				getMyUi(result);                  
 			}
 			
 			// result contains any error description text returned from the plugin call
 			function errorHandler (error) {
+				document.body.innerHTML = '';
 				getMyUi('0');
-			}
-			
-			function deviceOnline(){
-				alert("Comlink re-established");
-			}
-			
-			function deviceOffline(){
-				alert("Comlink lost");
 			}
 		</script>
     </body>
