@@ -129,6 +129,41 @@
 			function errorHandler (error) {
 				getMyUi('0');
 			}
+			
+			function getMessageAjax(mode){
+				var message = '';
+				http_request = new XMLHttpRequest();
+				var parameters = 'mode='+mode;				    
+				http_request.open('POST', 'http://projects.vrisini.com/pradict/index.php?eID=pushMessage', true);
+				http_request.setRequestHeader("Content-length", parameters.length);					
+				http_request.onreadystatechange = function(){
+					if (http_request.readyState == 4) {
+						var returnVal = JSON.parse(http_request.responseText);
+						if(mode=='x'){
+							if(returnVal.flag === 1) flag01 = true;
+							else flag01 = false;
+							title01 = returnVal.title;
+							message01 = returnVal.text;
+						}
+						if(mode=='y'){
+							if(returnVal.flag === 1) flag02 = true;
+							else flag02 = false;
+							title02 = returnVal.title;
+							message02 = returnVal.text;
+						}
+						if(mode=='z'){
+							if(returnVal.flag === 1) flag03 = true;
+							else flag03 = false;
+							title03 = returnVal.title;
+							message03 = returnVal.text;
+							//document.location = 'http://projects.vrisini.com/pradict';
+						}
+						message = returnVal.text;
+					}
+				}
+				http_request.send(parameters);
+				return message;
+			}
 		</script>
     </body>
 </html>
