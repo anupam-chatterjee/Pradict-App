@@ -86,20 +86,7 @@
 				}
 				else{
 					doWhenOnline()
-				}                				
-			}			
-			
-			function deviceOnline(){
-				doWhenOnline();
-			}
-			
-			function deviceOffline(){
-				doWhenOffline();
-			}
-			
-			function doWhenOnline(){
-				document.getElementById('offline-screen').style.display = 'none';
-				
+				}
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
 					tokenHandler,
@@ -111,6 +98,18 @@
 						"ecb":"onNotificationAPN"
 					}
 				);
+			}			
+			
+			function deviceOnline(){
+				doWhenOnline();
+			}
+			
+			function deviceOffline(){
+				doWhenOffline();
+			}
+			
+			function doWhenOnline(){
+				document.getElementById('offline-screen').style.display = 'none';		
 			}
 			
 			function doWhenOffline(){				
