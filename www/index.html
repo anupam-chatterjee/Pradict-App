@@ -55,7 +55,7 @@
 			// Add support
 			//$.support.cors=true;
 			//$.mobile.allowCrossDomainPages = true;		
-			alert('Pre');
+			
 			function loaded(){
 				document.getElementById('blanker').style.display = 'none';
 			}
@@ -68,7 +68,7 @@
 				}
 			};			
 			window.addEventListener("message", receiveMessage, false);
-			alert('Post');
+			
 			function getMyUi(myDeviceToken){
 				if(flag){
 					document.getElementById('container-frame').src = 'http://app.pradict.com/index.php?id=1&devId='+myDeviceToken;
