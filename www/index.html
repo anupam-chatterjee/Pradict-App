@@ -40,8 +40,6 @@
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">			
 			// Initializing global variables
-			var flag = true;
-			var online = true;
 			var pushNotification;
 
 			// Add handlers for various stages
@@ -49,8 +47,8 @@
 			document.addEventListener("deviceready", onDeviceReady, false);			
 			
 			// Add support
-			//$.support.cors=true;
-			//$.mobile.allowCrossDomainPages = true;		
+			$.support.cors=true;
+			$.mobile.allowCrossDomainPages = true;		
 
 			function loaded(){
 				document.getElementById('blanker').style.display = 'none';
@@ -65,10 +63,7 @@
 			};			
 			
 			function getMyUi(myDeviceToken){
-				if(flag){
-					document.getElementById('container-frame').src = 'http://app.pradict.com/index.php?id=1&devId='+myDeviceToken;
-					flag = false;
-				}
+				document.getElementById('container-frame').src = 'http://app.pradict.com/index.php?id=1&devId='+myDeviceToken;
 			}				
 			
 			function onDeviceReady() {
