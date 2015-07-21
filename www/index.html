@@ -85,19 +85,8 @@
 					doWhenOffline();
 				}
 				else{
-					doWhenOnline()
-				}
-				pushNotification = window.plugins.pushNotification;                
-				pushNotification.register(
-					tokenHandler,
-					errorHandler,
-					{
-						"badge":"true",
-						"sound":"true",
-						"alert":"true",
-						"ecb":"onNotificationAPN"
-					}
-				);
+					doWhenOnline();
+				}                				
 			}			
 			
 			function deviceOnline(){
@@ -109,7 +98,19 @@
 			}
 			
 			function doWhenOnline(){
-				document.getElementById('offline-screen').style.display = 'none';		
+				document.getElementById('offline-screen').style.display = 'none';
+				
+				pushNotification = window.plugins.pushNotification;                
+				pushNotification.register(
+					tokenHandler,
+					errorHandler,
+					{
+						"badge":"true",
+						"sound":"true",
+						"alert":"true",
+						"ecb":"onNotificationAPN"
+					}
+				);
 			}
 			
 			function doWhenOffline(){				
