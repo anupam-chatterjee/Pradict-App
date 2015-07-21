@@ -36,13 +36,18 @@
     <body>
 		<div id="blanker"></div>
 		<div id="offline-screen"></div>	
-		<iframe src="http://app.pradict.com" onload="loaded();" name="container-frame" id="container-frame" seamless="seamless" width="100%" height="100%" style="overflow-x:hidden; border:none;" scrolling="auto" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation"></iframe>
+		<iframe src="http://app.pradict.com" onload="loaded();" name="container-frame" id="container-frame" seamless="seamless" width="100%" height="100%" style="overflow-x:hidden; border:none;"></iframe>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript">			
 			// Initializing global variables
 			var flag = true;
-			var online = true;
 			var pushNotification;
+			
+			var calcTop = ((document.body.clientHeight / 2) - 48);
+			var calcLeft = ((document.body.clientWidth / 2) - 48);
+			document.getElementById('blanker').style.top = calcTop+'px';
+			document.getElementById('blanker').style.left = calcLeft+'px';
+			document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
 
 			// Add handlers for various stages
 			document.addEventListener("deviceready", onDeviceReady, false);			
@@ -72,12 +77,7 @@
 			}				
 			
 			function onDeviceReady() {
-				// Blanker on change
-				var calcTop = ((document.body.clientHeight / 2) - 48);
-				var calcLeft = ((document.body.clientWidth / 2) - 48);
-				document.getElementById('blanker').style.top = calcTop+'px';
-				document.getElementById('blanker').style.left = calcLeft+'px';
-				document.getElementById('offline-screen').style.height = document.body.clientHeight+'px';
+				// Blanker on change				
 				document.addEventListener("online", deviceOnline, false);
 				document.addEventListener("offline", deviceOffline, false);
 				var networkState = navigator.connection.type;
@@ -99,7 +99,6 @@
 			
 			function doWhenOnline(){
 				document.getElementById('offline-screen').style.display = 'none';
-				document.getElementById('blanker').style.display = 'block';
 				/*
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
