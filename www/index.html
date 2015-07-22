@@ -28,8 +28,7 @@
 		<style>
 			html, body{width:100%; height:100%;}
 			body{margin:0; padding:0;}
-			#blanker{width:96px; height:96px; background:url('loader.gif') no-repeat center center; display:none; z-index:1000; position:absolute;}
-			#offline-screen{width:100%; background:url('connectionlost.png') no-repeat center center; image-size:contain; display:none; z-index:1000; position:absolute;}
+			#blanker{width:32px; height:32px; background:url('loader.gif') no-repeat center center; display:none; z-index:1000; position:absolute;}			
 		</style>
     </head>
     
@@ -42,6 +41,7 @@
 			// Initializing global variables
 			var flag = true;
 			var pushNotification;
+			var deviceId;			
 			
 			var calcTop = ((document.body.clientHeight / 2) - 48);
 			var calcLeft = ((document.body.clientWidth / 2) - 48);
@@ -77,12 +77,18 @@
 			}				
 			
 			function onDeviceReady() {
+<!--                alert('device token000 = ');-->
+
 				// Blanker on change				
 				document.addEventListener("online", deviceOnline, false);
 				document.addEventListener("offline", deviceOffline, false);
 				var networkState = navigator.connection.type;
+<!--                alert('device token000 = '+ networkState);-->
+
 				if(networkState == Connection.NONE) {
 					doWhenOffline();
+                    
+<!--                    alert('device token1 = ');-->
 				}
 				else{
 					doWhenOnline();
@@ -91,6 +97,7 @@
 			
 			function deviceOnline(){
 				doWhenOnline();
+<!--                alert('device token2 = ');-->
 			}
 			
 			function deviceOffline(){
@@ -98,8 +105,8 @@
 			}
 			
 			function doWhenOnline(){
-				document.getElementById('offline-screen').style.display = 'none';
-				
+                
+<!--                alert('device token3 = ');-->				
 				pushNotification = window.plugins.pushNotification;                
 				pushNotification.register(
 					tokenHandler,
@@ -114,13 +121,15 @@
 			}
 			
 			function doWhenOffline(){				
-				document.getElementById('offline-screen').style.display = 'block';
+				document.getElementById('container-frame').src = 'connection_error.html';
 			}
 			
 			// Handle push token result
 			function tokenHandler (result) {
 				// Your iOS push server needs to know the token before it can push to this device
 				// here is where you might want to send it the token for later use.
+<!--                alert('device token = ' + result);-->
+
 				getMyUi(result);              
 			}
 			
